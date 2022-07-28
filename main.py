@@ -1,6 +1,4 @@
 import os
-import shutil
-
 extensions = {
     ".xlsx" : "Spreadsheets",
     ".exe" : "Setup Files",
@@ -34,11 +32,6 @@ def checkExtensions(dir):
             cpath = os.path.join(downlaodFolderPath, files)
             fpath = os.path.join(downlaodFolderPath, "Misc", files)
             os.rename(cpath, fpath)
-
-
-
-def moveFile():
-    pass
 
 dir = checkFiles()
 checkExtensions(dir)
