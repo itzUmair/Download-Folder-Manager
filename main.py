@@ -19,7 +19,6 @@ extensions = {
 downlaodFolderPath = 'C:/Users/Muhammad Umair Khan/Downloads'
 
 def checkFiles():
-    # os.chdir(downlaodFolderPath)
     filesInDir = os.listdir(downlaodFolderPath)
     return filesInDir
     
