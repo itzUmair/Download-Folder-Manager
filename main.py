@@ -10,7 +10,7 @@ extensions = {
     ".svg" : "Images",
     ".txt" : "Text",
     ".zip" : "Zip", 
-    ".docx" : "Word",
+    ".docx" : "Word Document",
     ".ppt" : "PowerPoint",
     ".pdf" : "PDF",
     ".msi" : "Setup Files"
@@ -19,41 +19,27 @@ extensions = {
 downlaodFolderPath = 'C:/Users/Muhammad Umair Khan/Downloads'
 
 def checkFiles():
-    availableFiles = os.listdir(downlaodFolderPath)
-    return len(availableFiles), availableFiles
+    # os.chdir(downlaodFolderPath)
+    filesInDir = os.listdir(downlaodFolderPath)
+    return filesInDir
     
-def getFileNames(dir):
-    exts = []
+def checkExtensions(dir):
     for files in dir:
-        ext = os.path.splitext(files)
-        exts.append(ext[1])
-    createFolders(exts)
-    moveFile(dir, exts)
-            
-def createFolders(exts):
-    folder = set(exts)
-    for x in folder:
-        if x not in extensions.keys():
-            fpath = os.path.join(downlaodFolderPath, "Misc")
-        else:
-            fpath = os.path.join(downlaodFolderPath, extensions[x])
+        fileName, fileExt = os.path.splitext(files)
+        if fileExt.startswith(".") and fileExt in extensions.keys():
+            cpath = os.path.join(downlaodFolderPath, files)
+            fpath = os.path.join(downlaodFolderPath, extensions[fileExt], files)
+            os.rename(cpath, fpath)
 
-        if not os.path.exists(fpath):
-            os.mkdir(fpath)
+        if fileExt.startswith(".") and fileExt not in extensions.keys():
+            cpath = os.path.join(downlaodFolderPath, files)
+            fpath = os.path.join(downlaodFolderPath, "Misc", files)
+            os.rename(cpath, fpath)
 
-def moveFile(dir, exts):
-    for files in dir:
-        for ext in exts:
-            if files.endswith(ext):
-                if ext not in extensions.keys():
-                    fpath = os.path.join(downlaodFolderPath , "Misc" , files)
-                else:
-                    fpath = os.path.join(downlaodFolderPath , extensions[ext] , files)
-                    cpath = os.path.join(downlaodFolderPath , files)
-                    print(cpath)
-                    os.rename(cpath, fpath)
-    
+
+
+def moveFile():
+    pass
 
 dir = checkFiles()
-
-getFileNames(dir[1])
+checkExtensions(dir)
